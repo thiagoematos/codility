@@ -1,28 +1,31 @@
 package codility;
 
+import static java.lang.Math.max;
 import static java.util.Arrays.fill;
 
 public class MaxCounters {
-    public int[] solution(int n, int[] arr) {
-        var maxCounters = new int[n];
+    public int[] solution(int n, int[] commands) {
+        var result = new int[n];
 
-        var max = 0;
+        var theBiggestNumber = 0;
 
-        for (int operation : arr) {
-            if (operation == 0) continue;
+        for (int command : commands) {
+            if (command == 0) continue;
 
-            if (operation == n + 1) {
-                fill(maxCounters, max);
+            if (command == n + 1) {
+                maximize(result, theBiggestNumber);
             } else {
-                operation--;
+                command--;
 
-                maxCounters[operation]++;
-                if (maxCounters[operation] > max) {
-                    max = maxCounters[operation];
-                }
+                result[command]++;
+                theBiggestNumber = max(theBiggestNumber, result[command]);
             }
         }
 
-        return maxCounters;
+        return result;
+    }
+
+    private static void maximize(int[] maxCounters, int max) {
+        fill(maxCounters, max);
     }
 }
