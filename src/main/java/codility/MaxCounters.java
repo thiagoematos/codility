@@ -1,7 +1,6 @@
 package codility;
 
-import static java.lang.Math.max;
-import static java.util.Arrays.fill;
+import java.util.Arrays;
 
 public class MaxCounters {
     public int[] solution(int n, int[] commands) {
@@ -15,10 +14,10 @@ public class MaxCounters {
             if (command == n + 1) {
                 maximize(result, theBiggestNumber);
             } else {
-                command--;
+                var index = command - 1;
 
-                result[command]++;
-                theBiggestNumber = max(theBiggestNumber, result[command]);
+                result[index]++;
+                theBiggestNumber = getMaxBetween(theBiggestNumber, result[index]);
             }
         }
 
@@ -26,6 +25,10 @@ public class MaxCounters {
     }
 
     private static void maximize(int[] maxCounters, int max) {
-        fill(maxCounters, max);
+        Arrays.fill(maxCounters, max);
+    }
+
+    private static int getMaxBetween(int theBiggestNumber, int result) {
+        return Math.max(theBiggestNumber, result);
     }
 }
